@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct GameSliderView: View {
+    
+    @Bindable var gameViewModel: GameViewViewModel
+    let color: UIColor
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            let targetValue = gameViewModel.gameOptions.targetValue
+            Text("Подвиньте слайдер как можно ближе к: \(targetValue)")
+            HStack {
+                Text("0")
+                UISliderRepresentation(
+                    value: $gameViewModel.gameOptions.currentValue,
+                    alpha: gameViewModel.alpha,
+                    color: color
+                )
+                Text("100")
+            }
+            .padding()
+        }
     }
 }
 
 #Preview {
-    GameSliderView()
+    GameSliderView(gameViewModel: GameViewViewModel(), color: .red)
 }
